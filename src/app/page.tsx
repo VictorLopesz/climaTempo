@@ -2,9 +2,10 @@
 import Cards from '../components/cards';
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaSpinner } from "react-icons/fa";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
+import { BiLoaderAlt } from 'react-icons/bi';
 
 const Key = "bcdd1ca6b3b6617e908b50f1dc55837f";
 
@@ -12,12 +13,14 @@ export default function Home() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [dadosApi, setDadosApi] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { reset } = useForm();
 
 
 
   const fetchWeather = async () => {
     if (inputRef.current) {
+      setLoading(true);
       try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputRef.current.value}&units=metric&appid=${Key}`);
   
@@ -28,11 +31,10 @@ export default function Home() {
         setDadosApi(response.data);
       } catch (error) {
         console.error('Erro na busca:', error);
+      } finally {
+        setLoading(false);
       }
     }
-    reset({
-      inputRef: ''
-    });
   }  
   
   return (
@@ -45,11 +47,17 @@ export default function Home() {
               placeholder="Digite sua Localização"
               className="text-lg border-b p-1 border-[#1B1A1D] bg-[#1B1A1D] text-white" 
             />
-<button 
-    onClick={fetchWeather}
-    className="m-1 ml-3">
-    <FaSearch className="w-6 h-6 hover:text-[#9c907c] transition ease-in-out delay-150 hover:scale-110 duration-300 active:w-4 active:h-4 active:delay-100"/>
-</button>
+            <div className="">
+            <button 
+              onClick={fetchWeather}
+              className="m-1 ml-3">
+                {loading ? (
+                  <BiLoaderAlt className="animate-spin text-gray-600 w-6 h-6" />
+                ) : (
+                  <FaSearch className="text-gray-600 w-6 h-6 hover:text-[#9c907c] transition ease-in-out delay-150 duration-300 active:duration-75 active:transition active:ease-in-out" />
+                )}
+            </button>
+            </div>
           </div>
           <div>
             <Cards dadosApi={dadosApi}/>

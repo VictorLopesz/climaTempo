@@ -117,7 +117,7 @@ const Cards = ({dadosApi}:any) => {
                 <>
                 <Fade
                 direction="down"
-                duration={4000}
+                duration={1000}
                 >
                     <p className="text-2xl font-semibold text-white flex items-center justify-center">
                         {dadosApi.name}, {dadosApi.sys.country}
@@ -139,25 +139,25 @@ const Cards = ({dadosApi}:any) => {
                 </Fade>
                     <br/>
                     <div className="grid grid-cols-1 w-full m-2 text-sm">
-                        <Fade delay={1000}>
+                        <Fade delay={500}>
                             <p className="text-white">
                                 <span className="font-semibold">Temperatura: </span> 
                                 {dadosApi.main.temp}°C
                             </p>
                         </Fade>
-                        <Fade delay={2000}>
+                        <Fade delay={600}>
                             <p className="text-white">
                                 <span className="font-semibold">Sensação Térmica: </span> 
                                 {dadosApi.main.feels_like}°C
                             </p>
                         </Fade>
-                        <Fade delay={3000}>
+                        <Fade delay={700}>
                             <p className="text-white">
                                 <span className="font-semibold">Umidade: </span> 
                                 {dadosApi.main.humidity}%
                             </p>
                         </Fade>
-                        <Fade delay={4000}>
+                        <Fade delay={800}>
                             <p className="text-white">
                                 <span className="font-semibold">Descrição: </span> 
                                 {descricaoTraduzida}
@@ -166,6 +166,9 @@ const Cards = ({dadosApi}:any) => {
                     </div>
                     <br/>
                     <br className="border border-b-[#505050e4]"/>
+                    <Fade delay={1000}
+                    direction="up"
+                    >
                     <div className="flex items-center justify-center">
                         {ClimaTipo.map((clima, index):any => {
                             if (clima.type === descricaoTraduzida) {
@@ -177,9 +180,10 @@ const Cards = ({dadosApi}:any) => {
                                     </div>
                                 )
                             }
-                       })}
+                        })}
                        <br/>
                     </div>
+                    </Fade>
                 </>
             )}
         </div>
