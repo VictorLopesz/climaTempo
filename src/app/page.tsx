@@ -14,6 +14,7 @@ export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dadosApi, setDadosApi] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { reset } = useForm();
 
 
@@ -21,6 +22,8 @@ export default function Home() {
   const fetchWeather = async () => {
     if (inputRef.current) {
       setLoading(true);
+      setError("");
+      reset();
       try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputRef.current.value}&units=metric&appid=${Key}`);
   
@@ -31,6 +34,7 @@ export default function Home() {
         setDadosApi(response.data);
       } catch (error) {
         console.error('Erro na busca:', error);
+        setError("Localização não encontrada. Por favor, tente novamente.");
       } finally {
         setLoading(false);
       }
@@ -39,26 +43,27 @@ export default function Home() {
   
   return (
       <div className="bg-[#0F0F0F] h-screen w-full grid place-items-center">
-        <div className="bg-[#1D1D1F] w-80 p-3 rounded-lg">
+        <div className="bg-[#1D1D1F] w-80 p-3 rounded-lg border border-sky-500">
           <div className="flex items-center justify-center">
             <input 
             ref={inputRef}
               type="text"
               placeholder="Digite sua Localização"
-              className="text-lg border-b p-1 border-[#1B1A1D] bg-[#1B1A1D] text-white" 
+              className="text-lg border border-sky-500 p-1 bg-[#1B1A1D] text-white" 
             />
             <div className="">
             <button 
               onClick={fetchWeather}
               className="m-1 ml-3">
                 {loading ? (
-                  <BiLoaderAlt className="animate-spin text-gray-600 w-6 h-6" />
+                  <BiLoaderAlt className="animate-spin text-sky-500 w-6 h-6" />
                 ) : (
-                  <FaSearch className="text-gray-600 w-6 h-6 hover:text-[#9c907c] transition ease-in-out delay-150 duration-300 active:duration-75 active:transition active:ease-in-out" />
+                  <FaSearch className="text-sky-500 w-6 h-6 hover:text-sky-700 transition ease-in-out delay-150 duration-300 active:duration-75 active:transition active:ease-in-out" />
                 )}
             </button>
             </div>
           </div>
+          {error !== "" && <p className="text-red-500 text-sm mt-2 flex items-center justify-center">{error}</p>}
           <div>
             <Cards dadosApi={dadosApi}/>
           </div>
