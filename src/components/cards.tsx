@@ -1,6 +1,7 @@
 'use client'
 import react, { useState } from 'react';
 import sol from '../../public/assets/sol.png'
+import lua from '../../public/assets/lua.png'
 import chuva from '../../public/assets/chuva.png'
 import flocodeNeve from '../../public/assets/floco-de-neve.png'
 import nuvens from '../../public/assets/nuvens.png'
@@ -11,69 +12,54 @@ import rajadas from '../../public/assets/rajada.png'
 import tempestade from '../../public/assets/tempestade.png'
 import { Fade } from "react-awesome-reveal";
 
+const horaAtual = new Date().getTime();
+
 const ClimaTipo = [
     {
-        type: "Céu limpo",
-        icon: sol,
-        mensagem: [
-            "Vai sair? Não se esqueça do protetor solar",
-        ],
+        type: "Céu Limpo",
+        icon: horaAtual >= 6 && horaAtual <= 18  ? sol : lua,
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Vai sair? Não se esqueça do protetor solar" : "Tenha uma boa noite, durma bem!",
     },
     {
         type: "Chuva",
         icon: chuva,
-        mensagem: [
-            "Não se esqueça do guarda-chuva quando sair",
-        ],
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Não se esqueça do guarda-chuva quando sair" : "Que delicia dormir com barulho da chuva"
     },
     {
         type: "Neve",
         icon: flocodeNeve,
-        mensagem: [
-            "Agasalhe-se, está muito frio lá fora",
-        ],
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Agasalhe-se, está muito frio lá fora" : "Seu cobertor está quentinho, que inveja",
     },
     {
         type: "Nuvens",
         icon: nuvens,
-        mensagem: [
-            "Aproveite o clima ameno para uma tarde no parque",
-        ]
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Aproveite o clima ameno para uma tarde no parque" : "O céu está com nuvens e é lindo à noite"
     },
     {
         type: "Névoa",
         icon: nevoa,
-        mensagem: [
-            "Olá, o nevoeiro chegou. Cuidado ao dirigir!",
-        ]
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Olá, o nevoeiro chegou. Cuidado ao dirigir!" : "Não dá para enxergar nada essa hora, fique em casa"
     },
     {
         type: "Ventos",
         icon:  ventos,
-        mensagem: [
-            "O vento traz um ar fresco e renovador",
-        ]
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "O vento traz um ar fresco e renovador" : "Barulho estranho, né? É só o vento na sua porta, relaxe e descanse"
     },
     {
         type: "Chuvisco",
         icon: chuvisco,
-        mensagem: [
-            "Leve o guarda-chuva porque a chuva pode apertar",
-        ]
+        mensagem:  horaAtual >= 6 && horaAtual <= 18  ? "Leve o guarda-chuva porque a chuva pode apertar" : "Tire a roupa da corda antes de dormir; a chuva pode apertar"
     },
     {
         type: "Tempestade",
         icon: tempestade,
-        mensagem: [
-            "Proteja-se, está chovendo muito"
-        ]
+        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Proteja-se, está chovendo muito" : "Fique alerta, a chuva pode ser perigosa"
     },
         {
         type: "Rajada",
         icon: rajadas,
-        mensagem: [
+        mensagem: 
             "Cuidado com as rajadas"
-        ]
     },
 ];
 
@@ -110,6 +96,9 @@ const Cards = ({dadosApi}:any) => {
     
     return(
         <>
+        <Fade
+        duration={1000}
+        >
         <div 
         className="gap-6 mt-10 mb-5"
         >
@@ -138,7 +127,7 @@ const Cards = ({dadosApi}:any) => {
                     </p>
                 </Fade>
                     <br/>
-                    <div className="grid grid-cols-1 w-full m-2 text-sm">
+                    <div className="grid grid-cols-1 w-full text-left m-2 text-sm">
                         <Fade delay={500}>
                             <p className="text-white">
                                 <span className="font-semibold">Temperatura: </span> 
@@ -187,6 +176,7 @@ const Cards = ({dadosApi}:any) => {
                 </>
             )}
         </div>
+        </Fade>
         </>
     );
 }

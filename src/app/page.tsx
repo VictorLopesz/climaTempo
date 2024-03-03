@@ -6,6 +6,8 @@ import { FaSearch, FaSpinner } from "react-icons/fa";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { BiLoaderAlt } from 'react-icons/bi';
+import Background from '../components/background';
+import { Fade } from "react-awesome-reveal";
 
 const Key = "bcdd1ca6b3b6617e908b50f1dc55837f";
 
@@ -16,7 +18,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { reset } = useForm();
-
 
 
   const fetchWeather = async () => {
@@ -42,32 +43,39 @@ export default function Home() {
   }  
   
   return (
-      <div className="bg-[#0F0F0F] h-screen w-full grid place-items-center">
-        <div className="bg-[#1D1D1F] w-80 p-3 rounded-lg border border-sky-500">
+    <>
+    <div>
+      <Background />
+      <div style={{ textAlign: 'center' }}>
+      <div className="h-screen w-full grid place-items-center shadow-xl">
+        <div className="bg-[#161617cd] w-80 p-3 rounded-lg border border-sky-600">
           <div className="flex items-center justify-center">
             <input 
             ref={inputRef}
               type="text"
               placeholder="Digite sua Localização"
-              className="text-lg border border-sky-500 p-1 bg-[#1B1A1D] text-white" 
+              className="text-sm border border-sky-600 rounded-md p-1 bg-[#1b1a1da8] text-white" 
             />
             <div className="">
             <button 
               onClick={fetchWeather}
               className="m-1 ml-3">
                 {loading ? (
-                  <BiLoaderAlt className="animate-spin text-sky-500 w-6 h-6" />
+                  <BiLoaderAlt className="animate-spin text-sky-600 w-6 h-6" />
                 ) : (
-                  <FaSearch className="text-sky-500 w-6 h-6 hover:text-sky-700 transition ease-in-out delay-150 duration-300 active:duration-75 active:transition active:ease-in-out" />
+                  <FaSearch className="text-sky-600 w-6 h-6 mt-1 hover:text-sky-800 transition ease-in-out delay-150 duration-300 active:duration-75 active:transition active:ease-in-out" />
                 )}
             </button>
             </div>
           </div>
-          {error !== "" && <p className="text-red-500 text-sm mt-2 flex items-center justify-center">{error}</p>}
+          {error !== "" && <p className="text-red-400 text-sm mt-2 flex items-center justify-center">{error}</p>}
           <div>
             <Cards dadosApi={dadosApi}/>
           </div>
         </div>
       </div>
+      </div>
+    </div>
+    </>
   );
 }
