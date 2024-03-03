@@ -12,86 +12,85 @@ import rajadas from '../../public/assets/rajada.png'
 import tempestade from '../../public/assets/tempestade.png'
 import { Fade } from "react-awesome-reveal";
 
-const horaAtual = new Date().getTime();
-
-const ClimaTipo = [
-    {
-        type: "Céu Limpo",
-        icon: horaAtual >= 6 && horaAtual <= 18  ? sol : lua,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Vai sair? Não se esqueça do protetor solar" : "Tenha uma boa noite, durma bem!",
-    },
-    {
-        type: "Chuva",
-        icon: chuva,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Não se esqueça do guarda-chuva quando sair" : "Que delicia dormir com barulho da chuva"
-    },
-    {
-        type: "Neve",
-        icon: flocodeNeve,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Agasalhe-se, está muito frio lá fora" : "Seu cobertor está quentinho, que inveja",
-    },
-    {
-        type: "Nuvens",
-        icon: nuvens,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Aproveite o clima ameno para uma tarde no parque" : "O céu está com nuvens e é lindo à noite"
-    },
-    {
-        type: "Névoa",
-        icon: nevoa,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Olá, o nevoeiro chegou. Cuidado ao dirigir!" : "Não dá para enxergar nada essa hora, fique em casa"
-    },
-    {
-        type: "Ventos",
-        icon:  ventos,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "O vento traz um ar fresco e renovador" : "Barulho estranho, né? É só o vento na sua porta, relaxe e descanse"
-    },
-    {
-        type: "Chuvisco",
-        icon: chuvisco,
-        mensagem:  horaAtual >= 6 && horaAtual <= 18  ? "Leve o guarda-chuva porque a chuva pode apertar" : "Tire a roupa da corda antes de dormir; a chuva pode apertar"
-    },
-    {
-        type: "Tempestade",
-        icon: tempestade,
-        mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Proteja-se, está chovendo muito" : "Fique alerta, a chuva pode ser perigosa"
-    },
-        {
-        type: "Rajada",
-        icon: rajadas,
-        mensagem: 
-            "Cuidado com as rajadas"
-    },
-];
-
-
-
-interface Traducoes {
-    [key: string]: string;
-  }
-  
-  const traducoes: Traducoes = {
-    "Clear": "Céu Limpo",
-    "Clouds": "Nuvens",
-    "Rain": "Chuva",
-    "Drizzle": "Chuvisco",
-    "Thunderstorm": "Tempestade",
-    "Snow": "Neve",
-    "Mist": "Névoa",
-    "Smoke": "Fumaça",
-    "Haze": "Neblina",
-    "Dust": "Poeira",
-    "Fog": "Nevoeiro",
-    "Sand": "Areia",
-    "Ash": "Cinzas",
-    "Squall": "Rajadas",
-    "Tornado": "Tornado"
-  };
-      
 
 const Cards = ({dadosApi}:any) => {
+    const horaAtual = new Date().getHours();
+    
+    const ClimaTipo = [
+        {
+            type: "Céu Limpo",
+            icon: horaAtual >= 6 && horaAtual <= 18  ? sol : lua,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Vai sair? Não se esqueça do protetor solar" : "Tenha uma boa noite, durma bem!",
+        },
+        {
+            type: "Chuva",
+            icon: chuva,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Não se esqueça do guarda-chuva quando sair" : "Que delicia dormir com barulho da chuva"
+        },
+        {
+            type: "Neve",
+            icon: flocodeNeve,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Agasalhe-se, está muito frio lá fora" : "Seu cobertor está quentinho, que inveja",
+        },
+        {
+            type: "Nuvens",
+            icon: nuvens,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Aproveite o clima ameno para uma tarde no parque" : "O céu está com nuvens e é lindo à noite"
+        },
+        {
+            type: "Névoa",
+            icon: nevoa,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Olá, o nevoeiro chegou. Cuidado ao dirigir!" : "Não dá para enxergar nada essa hora, fique em casa"
+        },
+        {
+            type: "Ventos",
+            icon:  ventos,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "O vento traz um ar fresco e renovador" : "Barulho estranho, né? É só o vento na sua porta, relaxe e descanse"
+        },
+        {
+            type: "Chuvisco",
+            icon: chuvisco,
+            mensagem:  horaAtual >= 6 && horaAtual <= 18  ? "Leve o guarda-chuva porque a chuva pode apertar" : "Tire a roupa da corda antes de dormir; a chuva pode apertar"
+        },
+        {
+            type: "Tempestade",
+            icon: tempestade,
+            mensagem: horaAtual >= 6 && horaAtual <= 18  ? "Proteja-se, está chovendo muito" : "Fique alerta, a chuva pode ser perigosa"
+        },
+            {
+            type: "Rajada",
+            icon: rajadas,
+            mensagem: 
+                "Cuidado com as rajadas"
+        },
+    ];
+    
+    
+    
+    interface Traducoes {
+        [key: string]: string;
+      }
+      
+      const traducoes: Traducoes = {
+        "Clear": "Céu Limpo",
+        "Clouds": "Nuvens",
+        "Rain": "Chuva",
+        "Drizzle": "Chuvisco",
+        "Thunderstorm": "Tempestade",
+        "Snow": "Neve",
+        "Mist": "Névoa",
+        "Smoke": "Fumaça",
+        "Haze": "Neblina",
+        "Dust": "Poeira",
+        "Fog": "Nevoeiro",
+        "Sand": "Areia",
+        "Ash": "Cinzas",
+        "Squall": "Rajadas",
+        "Tornado": "Tornado"
+      };
+          
     const [icons, setSelectedType] = useState(null);
     const descricao = dadosApi && dadosApi.weather[0].main;
-
     const descricaoTraduzida = descricao && traducoes[descricao];
     
     return(
