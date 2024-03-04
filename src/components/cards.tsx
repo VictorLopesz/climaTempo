@@ -117,7 +117,7 @@ const Cards = ({ dadosApi }: any) => {
                                 <p className="text-[12px] bg-[#39398B] shadow-md rounded-full p-2 text-white">
                                     {dadosApi.name}, {dadosApi.sys.country}
                                 </p>
-                                <p className="mr-4 mt-1">
+                                <p className="mr-4 mt-1 text-white font-semibold ">
                                     {datahora}
                                 </p>
                             </div>
