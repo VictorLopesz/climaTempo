@@ -1,7 +1,6 @@
 'use client'
 import react, { useEffect, useState } from 'react';
 import sol from '../../public/assets/sol.png'
-import lua from '../../public/assets/lua.png'
 import chuva from '../../public/assets/chuva.png'
 import flocodeNeve from '../../public/assets/floco-de-neve.png'
 import nuvens from '../../public/assets/nuvens.png'
@@ -11,11 +10,36 @@ import chuvisco from '../../public/assets/chuvisco.png'
 import rajadas from '../../public/assets/rajada.png'
 import tempestade from '../../public/assets/tempestade.png'
 import { Fade } from "react-awesome-reveal";
+import calor from '../../public/assets/calor.png';
+import frio from '../../public/assets/frio.png';
+import chocolateQuente from '../../public/assets/chocolate-quente.png';
+import congelando from '../../public/assets/congelando.png';
+import praia from '../../public/assets/praia.png';
+import ioga from '../../public/assets/ioga.png';
 
 
 const Cards = ({ dadosApi }: any) => {
     const horaAtual = new Date().getHours();
-    const [datahora, setDatahora] = useState(new Date().toLocaleTimeString());
+
+
+    const sensacaoTermica = () => {
+        if (dadosApi && dadosApi.main && dadosApi.main.feels_like) {
+            if (dadosApi.main.feels_like > 30){
+                return calor.src;
+            } else if (dadosApi.main.feels_like >= 20 && dadosApi.main.feels_like <= 30){
+                return praia.src;
+            } else if (dadosApi.main.feels_like >= 15 && dadosApi.main.feels_like <= 20){
+                return ioga.src;
+            } else if (dadosApi.main.feels_like >= 5 && dadosApi.main.feels_like <= 15){
+                return chocolateQuente.src;
+            } else if (dadosApi.main.feels_like >= 1 && dadosApi.main.feels_like <= 5){
+                return frio.src;
+            } else {
+                return congelando.src;
+            }
+        }
+        return "";
+    }
 
     const ClimaTipo = [
         {
@@ -36,7 +60,7 @@ const Cards = ({ dadosApi }: any) => {
         {
             type: "Nuvens",
             icon: nuvens,
-            mensagem: horaAtual >= 6 && horaAtual <= 18 ? "Aproveite o clima ameno, respire" : "O céu está com nuvens, veja como é lindo"
+            mensagem: horaAtual >= 6 && horaAtual <= 18 ? "Que tal assistir um filme? Prepare a pipoca" : "O céu está com nuvens, veja como é lindo"
         },
         {
             type: "Névoa",
@@ -93,16 +117,6 @@ const Cards = ({ dadosApi }: any) => {
     const descricao = dadosApi && dadosApi.weather[0].main;
     const descricaoTraduzida = descricao && traducoes[descricao];
 
-    useEffect(() => {
-        const intervalID = setInterval(() => {
-            setDatahora(new Date().toLocaleTimeString());
-        }, 1000);
-
-        return () => {
-            clearInterval(intervalID);
-        };
-    }, []);
-
     return (
         <>
             <Fade
@@ -114,12 +128,10 @@ const Cards = ({ dadosApi }: any) => {
                     {dadosApi && (
                         <>
                             <div className="text-center flex items-center justify-between w-auto">
-                                <p className="text-[12px] bg-[#39398B] shadow-md rounded-full p-2 text-white">
-                                    {dadosApi.name}, {dadosApi.sys.country}
+                                <p className="text-[12px] bg-[#39398B] shadow-md rounded-full p-2 text-white flex text-center justify-center ml-3">
+                                    {dadosApi.name}, {dadosApi.sys.country} 
                                 </p>
-                                <p className="mr-4 mt-1 text-white font-semibold ">
-                                    {datahora}
-                                </p>
+                                <img src={sensacaoTermica()} alt="Sensação Térmica" width={40} height={40} className="mr-8" />
                             </div>
                             <br />
                             <Fade
@@ -152,21 +164,21 @@ const Cards = ({ dadosApi }: any) => {
                                 <div className="grid grid-cols-3 gap-2 text-center">
                                     <Fade delay={800}>
                                         <p className="text-white">
-                                            <span className="font-semibold mb-1">Descrição</span>
+                                            <span className="font-semibold mb-1">Descrição:</span>
                                             <br />
                                             {descricaoTraduzida}
                                         </p>
                                     </Fade>
                                     <Fade delay={600}>
                                         <p className="text-white">
-                                            <span className="font-semibold mb-1">Sensação Térmica </span>
+                                            <span className="font-semibold mb-1">Sensação Térmica:</span>
                                             <br />
-                                            {Math.floor(dadosApi.main.feels_like)}°C
+                                            {Math.floor(dadosApi.main.feels_like)}°C 
                                         </p>
                                     </Fade>
                                     <Fade delay={700}>
                                         <p className="text-white">
-                                            <span className="font-semibold mb-1">Umidade </span>
+                                            <span className="font-semibold mb-1">Umidade:</span>
                                             <br />
                                             {dadosApi.main.humidity}%
                                         </p>

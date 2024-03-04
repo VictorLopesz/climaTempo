@@ -40,10 +40,9 @@ export default function Home() {
   return (
     <>
       <div>
-        <Background />
         <div style={{ textAlign: 'center' }}>
           <div className="font-roboto h-screen grid place-items-center shadow-xl">
-            <div className="bg-gradient-to-r from-[#8585E6] to-[#404096] w-80 p-3 rounded-xl ">
+            <div className="bg-gradient-to-r from-[#8585E6] to-[#404096] w-96 p-3 rounded-xl ">
               <div className="flex items-center justify-center">
                 <input
                   ref={inputRef}
@@ -63,7 +62,7 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              {error !== "" && <p className="text-red-400 text-sm mt-2 flex items-center justify-center">{error}</p>}
+              {error !== "" && <p className="text-white bg-red-400 p-1 rounded-xl text-[10px] mt-2 flex items-center justify-center">{error}</p>}
               <div>
                 <Cards dadosApi={dadosApi} />
               </div>
