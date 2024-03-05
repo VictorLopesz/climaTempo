@@ -26,6 +26,7 @@ export default function Home() {
         }
         
         setDadosApi(response.data);
+        console.log(response.data);
         inputRef.current.value = "";
       } catch (error) {
         console.error('Erro na busca:', error);
@@ -41,7 +42,7 @@ export default function Home() {
       <div>
         <div style={{ textAlign: 'center' }}>
         <div className="font-roboto h-screen bg-gradient-to-t to-[#38507a] via-[#1d79b6] from-[#fff] bg-cover grid place-items-center shadow-xl">
-            <div className="bg-gradient-to-r from-[#8585E6] to-[#404096] w-96 h-[90%] p-3 rounded-xl shadow-lg shadow-indigo-500/50">
+            <div className="bg-gradient-to-r from-[#8585E6] to-[#404096] w-96 p-3 rounded-xl shadow-lg shadow-indigo-500/50">
              <br/>
               <div className="flex items-center justify-center">
                 <input

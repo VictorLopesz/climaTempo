@@ -1,5 +1,4 @@
 'use client'
-import react, { useEffect, useState } from 'react';
 import sol from '../../public/assets/sol.png'
 import lua from '../../public/assets/lua.png'
 import chuva from '../../public/assets/chuva.png'
@@ -10,32 +9,30 @@ import ventos from '../../public/assets/vento.png'
 import chuvisco from '../../public/assets/chuvisco.png'
 import rajadas from '../../public/assets/rajada.png'
 import tempestade from '../../public/assets/tempestade.png'
-import { Fade } from "react-awesome-reveal";
+import Informacoes from '../components/informacoes';
 import calor from '../../public/assets/calor.png';
 import frio from '../../public/assets/frio.png';
 import chocolateQuente from '../../public/assets/chocolate-quente.png';
 import congelando from '../../public/assets/congelando.png';
 import praia from '../../public/assets/praia.png';
 import ioga from '../../public/assets/ioga.png';
-import termometro from '../../public/assets/termometros.png';
-import umidade from '../../public/assets/umidade.png';
+import { Fade } from "react-awesome-reveal";
 
 
 const Cards = ({ dadosApi }: any) => {
     const horaAtual = new Date().getHours();
 
-
     const sensacaoTermica = () => {
         if (dadosApi && dadosApi.main && dadosApi.main.feels_like) {
-            if (dadosApi.main.feels_like > 30){
+            if (dadosApi.main.feels_like > 30) {
                 return calor.src;
-            } else if (dadosApi.main.feels_like >= 20 && dadosApi.main.feels_like <= 30){
+            } else if (dadosApi.main.feels_like >= 20 && dadosApi.main.feels_like <= 30) {
                 return praia.src;
-            } else if (dadosApi.main.feels_like >= 15 && dadosApi.main.feels_like <= 20){
+            } else if (dadosApi.main.feels_like >= 15 && dadosApi.main.feels_like <= 20) {
                 return ioga.src;
-            } else if (dadosApi.main.feels_like >= 5 && dadosApi.main.feels_like <= 15){
+            } else if (dadosApi.main.feels_like >= 5 && dadosApi.main.feels_like <= 15) {
                 return chocolateQuente.src;
-            } else if (dadosApi.main.feels_like >= 1 && dadosApi.main.feels_like <= 5){
+            } else if (dadosApi.main.feels_like >= 1 && dadosApi.main.feels_like <= 5) {
                 return frio.src;
             } else {
                 return congelando.src;
@@ -47,7 +44,7 @@ const Cards = ({ dadosApi }: any) => {
     const ClimaTipo = [
         {
             type: "Céu Limpo",
-            icon: horaAtual >= 6 && horaAtual <=18 ? sol : lua,
+            icon: horaAtual >= 6 && horaAtual <= 18 ? sol : lua,
             mensagem: horaAtual >= 6 && horaAtual <= 18 ? "Vai sair? Não se esqueça do protetor solar" : "Aproveite a vida, ela é bela demais",
         },
         {
@@ -132,11 +129,11 @@ const Cards = ({ dadosApi }: any) => {
                         <>
                             <div className="text-center flex items-center justify-between w-auto">
                                 <p className="text-[12px] bg-[#39398B] shadow-md rounded-full p-2 text-white flex text-center justify-center ml-3">
-                                    {dadosApi.name}, {dadosApi.sys.country} 
+                                    {dadosApi.name}, {dadosApi.sys.country}
                                 </p>
                                 <Fade
-                                direction='right'
-                                duration={1000}
+                                    direction='right'
+                                    duration={1000}
                                 >
                                     <img src={sensacaoTermica()} alt="Sensação Térmica" width={40} height={40} className="mr-8" />
                                 </Fade>
@@ -163,43 +160,10 @@ const Cards = ({ dadosApi }: any) => {
                                 </p>
                             </Fade>
                             <br />
-                            <div className="grid grid-cols-1 w-full text-left text-sm align-items-center">
-                                <Fade delay={500}>
-                                    <p className="text-white shadow-2xl -mt-1 font-semibold flex items-center justify-center text-[30px] mb-10">
-                                        {Math.floor(dadosApi.main.temp)}°C
-                                    </p>
-                                </Fade>
-                                <div className="grid grid-cols-3 gap-3 text-center">
-                                    <Fade delay={800}>
-                                        <p className="text-black bg-[#b5b5ff] border rounded-lg p-3 border-[#b5b5ff] shadow">
-                                            <span className="font-semibold mb-1">Descrição</span>
-                                            <br />
-                                            {descricaoTraduzida}
-                                        </p>
-                                    </Fade>
-                                    <Fade delay={600}>
-                                        <p className="text-black bg-[#b5b5ff] border rounded-lg p-3 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
-                                            <img src={termometro.src} alt="termometro" className="-ml-2 w-9"/>
-                                            <p className="grid grid-cols-1 -ml-6">
-                                                <p className="font-semibold -mr-2">Sensação Térmica</p>
-                                                {Math.floor(dadosApi.main.feels_like)}°C 
-                                            </p>
-                                        </p>
-                                    </Fade>
-                                    <Fade delay={700}>
-                                        <p className="text-black bg-[#b5b5ff] border rounded-lg p-2 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
-                                            <img src={umidade.src} alt="umidade" className="w-8 -ml-1 mt-1"/>
-                                            <p className="mb-1 grid grid-cols-1 -ml-4 mt-1">
-                                                <p className="font-semibold">Umidade</p>
-                                                {dadosApi.main.humidity}%
-                                            </p>
-                                        </p>
-                                    </Fade>
-                                </div>
+                            <div className="-mt-2">
+                                <Informacoes dadosApi={dadosApi} />
                             </div>
                             <br />
-                            <br className="border border-b-[#505050e4]" />
-
                             <Fade delay={1000}
                                 direction="up"
                             >
