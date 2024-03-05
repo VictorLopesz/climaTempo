@@ -164,24 +164,6 @@ const Cards = ({ dadosApi }: any) => {
                                 <Informacoes dadosApi={dadosApi} />
                             </div>
                             <br />
-                            <Fade delay={1000}
-                                direction="up"
-                            >
-                                <div className="flex items-center justify-center p-2 bg-[#e4e4ea] rounded-xl shadow-2xl">
-                                    {ClimaTipo.map((clima, index): any => {
-                                        if (clima.type === descricaoTraduzida) {
-                                            return (
-                                                <div key={index}>
-                                                    <p className="text-[#353689] font-semibold text-center flex text-sm">
-                                                        {clima.mensagem}
-                                                    </p>
-                                                </div>
-                                            )
-                                        }
-                                    })}
-                                    <br />
-                                </div>
-                            </Fade>
                         </>
                     )}
                 </div>

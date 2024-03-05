@@ -3,9 +3,12 @@ import React from 'react'
 import { Fade } from "react-awesome-reveal";
 import termometro from '../../public/assets/termometros.png';
 import umidade from '../../public/assets/umidade.png';
-import TemperaturaBarra from './barraTemperatura';
+import ventos from '../../public/assets/ventos.png';
+import atmosferico from '../../public/assets/atmosferico.png';
+import { format } from 'date-fns';
 
-const Informacoes = ({ dadosApi, temperatura, temperaturaMaxima, temperaturaMinima }: any) => {
+
+const Informacoes = ({ dadosApi }: any) => {
 
     interface Traducoes {
         [key: string]: string;
@@ -38,33 +41,37 @@ const Informacoes = ({ dadosApi, temperatura, temperaturaMaxima, temperaturaMini
                 <div>
                     <div className="grid grid-cols-1 w-full text-left text-sm align-items-center">
                         <Fade delay={500}>
-                            <p className="text-white shadow-2xl mt-1 font-semibold flex items-center justify-center text-[30px] mb-10">
-                                {Math.floor(dadosApi.main.temp)}°C
+                            <p className="text-white shadow-2xl ml-1 -mt-2 font-semibold flex items-center justify-center text-[50px] mb-10">
+                                {Math.floor(dadosApi.main.temp)}°
                             </p>
                         </Fade>
 
-                        <div className="grid grid-cols-1 -mt-4 ml-4 justify-items-center">
-                        <span>
-                                {Math.floor(dadosApi.main.temp_max)}º
-                                <TemperaturaBarra
-                                    temperatura={temperatura}
-                                    temperaturaMaxima={temperaturaMaxima}
-                                    temperaturaMinima={temperaturaMinima}
-                                />
-                                {Math.floor(dadosApi.main.temp_min)}º
-                            </span>
-                        </div>
-                        <br />
-                        <div className="grid grid-cols-3 gap-3 text-center">
-                            <Fade delay={800}>
-                                <p className="text-black bg-[#b5b5ff] border rounded-lg p-3 border-[#b5b5ff] shadow">
+                        <div className="grid grid-cols-3 gap-1 text-center">
+                            <Fade delay={600}>
+                                <p className="text-black bg-[#b5b5ff] border rounded-tl-lg p-3 border-[#b5b5ff] shadow-2xl">
                                     <span className="font-semibold mb-1">Descrição</span>
                                     <br />
                                     {descricaoTraduzida}
                                 </p>
                             </Fade>
                             <Fade delay={600}>
-                                <p className="text-black bg-[#b5b5ff] border rounded-lg p-3 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
+                                <p className="text-black bg-[#b5b5ff] border p-3 border-[#b5b5ff] shadow-2xl">
+                                    <div className="grid grid-cols-1 justify-items-center">
+                                        <span className="text-white flex flex-col">
+                                            <div className="text-black flex items-center justify-center gap-1">
+                                                <p className="font-semibold">Máxima</p> <p className="flex items-center justify-center rounded-[50%] h-[10px] w-[10px] shadow-2xl bg-[#DD0000]"></p>
+                                                {Math.floor(dadosApi.main.temp_max)}º
+                                            </div>
+                                            <div className=" text-black flex items-center justify-center gap-1">
+                                            <p className="font-semibold mr-1">Mínima</p> <p className="flex items-center justify-center rounded-[50%] h-[10px] w-[10px] shadow-2xl bg-[#0025dd]"></p>
+                                                {Math.floor(dadosApi.main.temp_min)}º
+                                            </div>
+                                        </span>
+                                    </div>
+                                </p>
+                            </Fade>
+                            <Fade delay={600}>
+                                <p className="text-black bg-[#b5b5ff] border p-3 rounded-tr-lg border-[#b5b5ff] shadow-2xl grid grid-cols-2 mb-1">
                                     <img src={termometro.src} alt="termometro" className="-ml-3 w-9" />
                                     <p className="grid grid-cols-1 -ml-6">
                                         <p className="font-semibold -mr-2 ">ST</p>
@@ -73,7 +80,7 @@ const Informacoes = ({ dadosApi, temperatura, temperaturaMaxima, temperaturaMini
                                 </p>
                             </Fade>
                             <Fade delay={700}>
-                                <p className="text-black bg-[#b5b5ff] border rounded-lg p-2 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
+                                <p className="text-black bg-[#b5b5ff] border rounded-bl-lg p-2 border-[#b5b5ff] shadow-2xl grid grid-cols-2 mb-1">
                                     <img src={umidade.src} alt="umidade" className="w-8 -ml-1 mt-1" />
                                     <p className="mb-1 grid grid-cols-1 -ml-4 mt-1">
                                         <p className="font-semibold">Umidade</p>
@@ -81,31 +88,23 @@ const Informacoes = ({ dadosApi, temperatura, temperaturaMaxima, temperaturaMini
                                     </p>
                                 </p>
                             </Fade>
-
-                            <Fade delay={800}>
-                                <p className="text-black bg-[#b5b5ff] border rounded-lg p-2 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
-                                    <img src={umidade.src} alt="umidade" className="w-8 -ml-1 mt-1" />
-                                    <p className="mb-1 grid grid-cols-1 -ml-4 mt-1">
-                                        <p className="font-semibold">Umidade</p>
-                                        {dadosApi.main.humidity}%
+                            <Fade delay={700}>
+                                <p className="text-black bg-[#b5b5ff] border p-2 border-[#b5b5ff] shadow-2xl grid grid-cols-2 mb-1">
+                                    <img src={ventos.src} alt="ventos" className="w-8 ml-1 mt-1" />
+                                    <p className="mb-1 grid grid-cols-1 -ml-5 mt-1">
+                                        <p className="font-semibold">Ventos</p>
+                                        {Math.floor(dadosApi.wind.speed)} km/h
                                     </p>
                                 </p>
                             </Fade>
-                            <Fade delay={900}>
-                                <p className="text-black bg-[#b5b5ff] border rounded-lg p-2 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
-                                    <img src={umidade.src} alt="umidade" className="w-8 -ml-1 mt-1" />
+                            <Fade delay={700}>
+                                <p className="text-black bg-[#b5b5ff] border p-2 rounded-br-lg border-[#b5b5ff] shadow-2xl grid grid-cols-2 mb-1">
+                                    <img src={atmosferico.src} alt="atmosferico" className="w-8 -ml-1 mt-1" />
                                     <p className="mb-1 grid grid-cols-1 -ml-4 mt-1">
-                                        <p className="font-semibold">Umidade</p>
-                                        {dadosApi.main.humidity}%
-                                    </p>
-                                </p>
-                            </Fade>
-                            <Fade delay={1000}>
-                                <p className="text-black bg-[#b5b5ff] border rounded-lg p-2 border-[#b5b5ff] shadow grid grid-cols-2 mb-1">
-                                    <img src={umidade.src} alt="umidade" className="w-8 -ml-1 mt-1" />
-                                    <p className="mb-1 grid grid-cols-1 -ml-4 mt-1">
-                                        <p className="font-semibold">Umidade</p>
-                                        {dadosApi.main.humidity}%
+                                        <p className="font-semibold">Pressão</p>
+                                        <p className="-ml-1">
+                                            {Math.floor(dadosApi.main.pressure)} mbar
+                                        </p>
                                     </p>
                                 </p>
                             </Fade>
