@@ -45,7 +45,6 @@ const Informacoes = ({ dadosApi }: any) => {
                                 {Math.floor(dadosApi.main.temp)}°
                             </p>
                         </Fade>
-
                         <div className="grid grid-cols-3 gap-1 text-center">
                             <Fade delay={600}>
                                 <p className="text-black bg-[#b5b5ff] border rounded-tl-lg p-3 border-[#b5b5ff] shadow-2xl">
